@@ -3,7 +3,7 @@
   "builds": [
     {
       "src": "manage.py",
-      "use": "@vercel/build",
+      "use": "@vercel/python",
       "config": {
         "django": {
           "static": "staticfiles",

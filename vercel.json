@@ -1,22 +1,29 @@
+
 {
     "version": 2,
     "builds": [
-      {
-        "src": "manage.py",
+    {
+        "src": "project_management/wsgi.py",
         "use": "@vercel/python",
-        "config": { "maxLambdaSize": "50mb" }
-      }
+        "config": { "maxLambdaSize": "15mb", "runtime": "python3.10.10" }
+    },
+    {
+        "src": "build_files.sh",
+        "use": "@vercel/static-build",
+        "config": {
+        "distDir": "staticfiles_build"
+        }
+    }
     ],
     "routes": [
-      {
+    {
+        "src": "/static/(.*)",
+        "dest": "/static/$1"
+    },
+    {
         "src": "/(.*)",
-        "dest": "manage.py"
-      }
-    ],
-    "env": {
-      "SECRET_KEY": "django-insecure-3wjw#q-n)thft_uqcer4&a!y0(78$be4x_hp&nl-cmdzopnc(z",
-      "DEBUG": "false",
-      "ALLOWED_HOSTS": "*.vercel.app"
+        "dest": "project_management/wsgi.py"
     }
-  }
-  
+    ]
+}
+

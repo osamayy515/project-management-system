@@ -1,13 +1,21 @@
 {
-    "builds": [{
-        "src": "project_management/wsgi.py",
-        "use": "@vercel/python",
-        "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
-    }],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "project_management/wsgi.py"
+  "version": 2,
+  "builds": [
+    {
+      "src": "manage.py",
+      "use": "@vercel/build",
+      "config": {
+        "django": {
+          "static": "staticfiles",
+          "build": "python3.9 manage.py collectstatic --noinput"
         }
-    ]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/<all*>",
+      "dest": "wsgi.py"
+    }
+  ]
 }
